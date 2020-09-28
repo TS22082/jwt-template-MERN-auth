@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const User = require("../models/userModel");
-const Reminder = require("../models/reminderModel.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const auth = require("../middleware/auth");
@@ -113,50 +112,6 @@ router.get("/", auth, async (req, res) => {
     displayName: user.displayName,
     id: user._id,
   });
-});
-
-router.post("/reminder", auth, async (req, res) => {
-  try {
-    const { subject, note, time } = req.body;
-
-    //validation
-    if (!note || !time || !subject)
-      return res.status(400).json({ msg: "Not all fields have been entered." });
-
-    const newNote = new Reminder({
-      subject,
-      note,
-      time,
-    });
-    const user = await User.findById(req.user);
-    user.reminders.push(newNote);
-    await user.save();
-    res.json(user.reminders);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-router.get("/viewReminder", auth, async (req, res) => {
-  const user = await User.findById(req.user);
-  res.json({
-    reminders: user.reminders,
-  });
-});
-
-router.delete("/deleteReminder/:id", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user);
-    const indexToDelete = user.reminders.indexOf(req.body._id);
-
-    user.reminders.splice(indexToDelete, 1);
-
-    await user.save();
-
-    res.send(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
 
 module.exports = router;
