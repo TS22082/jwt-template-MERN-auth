@@ -1,5 +1,5 @@
 {
-  "name": "kibblings-1",
+  "name": "jwt-template",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mnallas/kibblings-1.git"
+    "url": "git+https://github.com/mnallas/jwt-template-MERN-auth.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mnallas/kibblings-1/issues"
+    "url": "https://github.com/TS22082/jwt-template-MERN-auth/issues"
   },
-  "homepage": "https://github.com/mnallas/kibblings-1#readme",
+  "homepage": "https://github.com/TS22082/jwt-template-MERN-auth#readme",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "axios": "^0.20.0",
