@@ -18,7 +18,7 @@ router.post("/login", login);
 router.delete("/delete", auth, remove);
 
 // check if a token is valid
-router.post("/tokenIsValid", tokenIsValid);
+router.get("/tokenIsValid", tokenIsValid);
 
 // get current user
 router.get("/", auth, getUser);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
@@ -20,12 +20,14 @@ function App() {
       token = "";
     }
 
-    const tokenRes = await Axios.post("/users/tokenIsValid", null, {
+    const tokenRes = await axios.get("/users/tokenIsValid", {
       headers: { "x-auth-token": token },
     });
 
+    console.log(tokenRes);
+
     if (tokenRes.data) {
-      const userRes = await Axios.get("/users/", {
+      const userRes = await axios.get("/users/", {
         headers: { "x-auth-token": token },
       });
 
