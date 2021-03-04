@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 
 const Home = () => {
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {

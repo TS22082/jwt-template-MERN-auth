@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import UserContext from "../Context/UserContext";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
 const Signup = () => {
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
   const [form, setForm] = useState();
   const history = useHistory();
 
@@ -60,7 +60,7 @@ const Signup = () => {
         onChange={onChange}
         type="text"
         name="displayName"
-        placeholder="passwordCheck"
+        placeholder="Display name"
       ></input>
 
       <input type="submit"></input>
