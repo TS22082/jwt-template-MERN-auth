@@ -18,23 +18,21 @@ function App() {
     if (token === null) {
       localStorage.setItem("auth-token", "");
       token = "";
-    }
-
-    const tokenRes = await axios.get("/users/tokenIsValid", {
-      headers: { "x-auth-token": token },
-    });
-
-    console.log(tokenRes);
-
-    if (tokenRes.data) {
-      const userRes = await axios.get("/users/", {
+    } else {
+      const tokenRes = await axios.get("/users/tokenIsValid", {
         headers: { "x-auth-token": token },
       });
 
-      setUserData({
-        token,
-        user: userRes.data,
-      });
+      if (tokenRes.data) {
+        const userRes = await axios.get("/users/", {
+          headers: { "x-auth-token": token },
+        });
+
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
     }
   };
 
