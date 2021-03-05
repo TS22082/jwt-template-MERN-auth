@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const {
-  tokenIsValid,
   getUser,
   register,
   login,
@@ -16,9 +15,6 @@ router.post("/login", login);
 
 // delete a user
 router.delete("/delete", auth, remove);
-
-// check if a token is valid
-router.get("/tokenIsValid", tokenIsValid);
 
 // get current user
 router.get("/", auth, getUser);
