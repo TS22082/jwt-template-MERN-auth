@@ -8,18 +8,9 @@ const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// setup routes
-app.use("/users", require("./routes/userRoutes"));
-
 // setup mongoose
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/jwt-auth",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: true,
-  },
   (err) => {
     if (err) throw err;
     console.log("MongoDB connection established");
