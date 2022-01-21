@@ -39,9 +39,6 @@ module.exports = {
     try {
       const postFound = await Post.findById(req.params.postId);
 
-      console.log("user ID ==>", req.user);
-      console.log("post from id ===>", postFound.authorId);
-
       if (req.user !== postFound.authorId) {
         res.status(500).json({ msg: "Not authorized" });
       }
@@ -54,7 +51,19 @@ module.exports = {
     }
   },
 
-  deletePost: (req, res) => {
-    res.json({ msg: "delete post success" });
+  deletePost: async (req, res) => {
+    try {
+      const postFound = await Post.findById(req.params.postId);
+
+      if (req.user !== postFound.authorId) {
+        res.status(500).json({ msg: "Not authorized" });
+      }
+
+      await Post.findByIdAndDelete(req.params.postId);
+
+      res.json({ msg: "successfully deleted" });
+    } catch (err) {
+      res.status(500).json({ msg: err });
+    }
   },
 };
