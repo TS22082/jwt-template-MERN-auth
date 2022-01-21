@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import UserContext from "../Context/UserContext";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import CenteringDiv from "../Fragments/CenteringDiv";
+import AuthForm from "../Fragments/Auth/AuthForm";
+import AuthInput from "../Fragments/Auth/AuthInput";
+import AuthButton from "../Fragments/Buttons/AuthButton";
 
 const Signup = () => {
   const { setUserData } = useContext(UserContext);
@@ -34,37 +38,38 @@ const Signup = () => {
   };
 
   return (
-    <form onSubmit={submit}>
-      <input
-        onChange={onChange}
-        type="text"
-        name="email"
-        placeholder="email"
-      ></input>
+    <CenteringDiv>
+      <AuthForm onSubmit={(e) => submit(e)}>
+        <AuthInput
+          onChange={onChange}
+          type="text"
+          name="email"
+          placeholder="email"
+        ></AuthInput>
 
-      <input
-        onChange={onChange}
-        type="text"
-        name="password"
-        placeholder="password"
-      ></input>
+        <AuthInput
+          onChange={onChange}
+          type="text"
+          name="password"
+          placeholder="password"
+        ></AuthInput>
 
-      <input
-        onChange={onChange}
-        type="text"
-        name="passwordCheck"
-        placeholder="passwordCheck"
-      ></input>
+        <AuthInput
+          onChange={onChange}
+          type="text"
+          name="passwordCheck"
+          placeholder="passwordCheck"
+        ></AuthInput>
 
-      <input
-        onChange={onChange}
-        type="text"
-        name="displayName"
-        placeholder="Display name"
-      ></input>
-
-      <input type="submit"></input>
-    </form>
+        <AuthInput
+          onChange={onChange}
+          type="text"
+          name="displayName"
+          placeholder="Display name"
+        ></AuthInput>
+        <AuthButton type="submit">Submit</AuthButton>
+      </AuthForm>
+    </CenteringDiv>
   );
 };
 

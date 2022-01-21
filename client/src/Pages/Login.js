@@ -2,6 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../Context/UserContext";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import CenteringDiv from "../Fragments/CenteringDiv";
+import AuthForm from "../Fragments/Auth/AuthForm";
+import AuthButton from "../Fragments/Buttons/AuthButton";
+import AuthInput from "../Fragments/Auth/AuthInput";
 
 const Login = () => {
   const { userData, setUserData } = useContext(UserContext);
@@ -38,15 +42,25 @@ const Login = () => {
   }, [userData.user, history]);
 
   return (
-    <div>
-      <form onSubmit={submit}>
+    <CenteringDiv>
+      <AuthForm onSubmit={submit}>
         <label htmlFor="email">Email</label>
-        <input type="text" name="email" onChange={onChange} />
+        <AuthInput
+          type="text"
+          placeholder="your email"
+          name="email"
+          onChange={onChange}
+        />
         <label htmlFor="password">Password</label>
-        <input type="text" name="password" onChange={onChange} />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+        <AuthInput
+          type="text"
+          placeholder="password"
+          name="password"
+          onChange={onChange}
+        />
+        <AuthButton type="submit">Login</AuthButton>
+      </AuthForm>
+    </CenteringDiv>
   );
 };
 

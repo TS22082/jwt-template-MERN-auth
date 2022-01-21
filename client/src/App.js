@@ -47,10 +47,14 @@ function App() {
     <div className="App">
       <BrowserRouter>
         {!userData.user ? (
-          <>
-            <Link to="/signup">Signup</Link>
-            <Link to="/login">Login</Link>
-          </>
+          <div style={{ textAlign: "center", margin: "2rem" }}>
+            <Link style={{ margin: "1rem" }} to="/signup">
+              Signup
+            </Link>
+            <Link style={{ margin: "1rem" }} to="/login">
+              Login
+            </Link>
+          </div>
         ) : (
           <Link to="/login" onClick={logout}>
             Logout
