@@ -3,11 +3,13 @@ import styled from "styled-components";
 
 const TweetModalContainer = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
-  width: 100%;
-  height: 250px;
-  z-index: 2;
-  border: 2px solid black;
-  background-color: grey;
+  position: absolute;
+  top: 0;
+  margin: auto 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 export default TweetModalContainer;
