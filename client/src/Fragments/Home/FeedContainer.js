@@ -6,8 +6,12 @@ const FeedContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: darkblue;
+  background-color: white;
   overflow-y: scroll;
+  border-right: 0.5px solid #eff3f4;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default FeedContainer;

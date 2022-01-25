@@ -6,6 +6,7 @@ const AsideMenu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-right: 0.5px solid #eff3f4;
 `;
 
 export default AsideMenu;

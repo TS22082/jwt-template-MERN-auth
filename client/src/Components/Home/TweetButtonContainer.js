@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const AsideDivWrapButton = styled.div`
+const TweetButtonContainer = styled.div`
   width: 100%;
   height: 50px;
   background-color: white;
@@ -9,4 +9,4 @@ const AsideDivWrapButton = styled.div`
   justify-content: center;
 `;
 
-export default AsideDivWrapButton;
+export default TweetButtonContainer;

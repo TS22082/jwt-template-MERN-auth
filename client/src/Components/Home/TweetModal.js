@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../../Context/UserContext";
-
 import TweetModalContainer from "../../Fragments/Home/TweetModalContainer";
 import Modal from "../../Fragments/Home/TweetModal";
 import Axios from "axios";
@@ -17,9 +16,6 @@ const TweetModal = (props) => {
   const onSubmitTweet = async (e) => {
     e.preventDefault();
     try {
-      const headers = {
-        "x-auth-token": userData.token,
-      };
       await Axios.post(
         "/posts/",
         {

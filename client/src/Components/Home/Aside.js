@@ -1,27 +1,44 @@
 import React from "react";
 import AsideMenu from "../../Fragments/Home/AsideMenu";
 import AsideButton from "../../Fragments/Home/AsideButton";
-import AuthButton from "../../Fragments/Buttons/AuthButton";
+import TweetButton from "../../Fragments/Buttons/TweetButton";
 import AsideDivWrapButton from "./AsideDivWrapButton";
+import { FaTwitter } from "react-icons/fa";
+import TweetButtonContainer from "./TweetButtonContainer";
 
 const Aside = (props) => {
   return (
     <AsideMenu>
       <AsideDivWrapButton>
-        <AsideButton>Home</AsideButton>
+        <AsideButton>
+          <h1>
+            <FaTwitter color="#2e9bf0" />
+          </h1>
+        </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
-        <AsideButton>Explore</AsideButton>
+        <AsideButton>
+          <h2>Home</h2>
+        </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
-        <AsideButton>Notifications</AsideButton>
+        <AsideButton>
+          <h2>Explore</h2>
+        </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
-        <AsideButton>Profile</AsideButton>
+        <AsideButton>
+          <h2>Notifications</h2>
+        </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
-        <AuthButton onClick={() => props.openPostModal()}>Tweet</AuthButton>
+        <AsideButton>
+          <h2>Profile</h2>
+        </AsideButton>
       </AsideDivWrapButton>
+      <TweetButtonContainer>
+        <TweetButton onClick={() => props.openPostModal()}>Tweet</TweetButton>
+      </TweetButtonContainer>
     </AsideMenu>
   );
 };

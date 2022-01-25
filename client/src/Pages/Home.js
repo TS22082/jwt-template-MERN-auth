@@ -6,6 +6,7 @@ import Aside from "../Components/Home/Aside";
 import FeedContainer from "../Fragments/Home/FeedContainer";
 import TweetModal from "../Components/Home/TweetModal";
 import Axios from "axios";
+import TweetContainer from "../Fragments/Home/TweetContainer";
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
@@ -57,7 +58,9 @@ const Home = () => {
       <Aside show={postModalShow} openPostModal={openPostModal}></Aside>
 
       <FeedContainer>
-        <h1>Twitter Feed</h1>
+        <div>
+          <h3 style={{ margin: "10px 0px" }}>Home</h3>
+        </div>
         <TweetModal
           show={postModalShow}
           setShow={setPostModalShow}
@@ -65,15 +68,15 @@ const Home = () => {
         ></TweetModal>
 
         {tweets.map((tweet, i) => (
-          <div key={i}>
+          <TweetContainer key={i}>
             <h3>{tweet.text}</h3>
             {tweet.authorId === userData.user.id && (
               <button onClick={() => deleteTweet(tweet._id)}>delete</button>
             )}
-          </div>
+          </TweetContainer>
         ))}
       </FeedContainer>
-      <div>Whats happening/Messages</div>
+      <div style={{ margin: "15px" }}>Whats happening/Messages</div>
     </HomeLayout>
   );
 };
