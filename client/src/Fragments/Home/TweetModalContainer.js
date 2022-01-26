@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const TweetModalContainer = styled.div`
@@ -9,7 +8,7 @@ const TweetModalContainer = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
 `;
 
 export default TweetModalContainer;
