@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import UserContext from "./Context/UserContext";
+import SinglePost from "./Pages/SinglePost";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -65,7 +66,8 @@ function App() {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/" component={Home} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/post/:postId" component={SinglePost} />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>

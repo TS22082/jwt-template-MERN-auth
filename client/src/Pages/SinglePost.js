@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import HomeLayout from "../Fragments/Home/HomeLayout";
 import Aside from "../Components/Home/Aside";
@@ -9,30 +9,27 @@ import Axios from "axios";
 import TweetContainer from "../Fragments/Home/TweetContainer";
 import { CgProfile } from "react-icons/cg";
 
-const Home = () => {
-  const [tweets, setTweets] = useState([]);
+const SinglePost = () => {
+  const [tweet, setTweet] = useState({});
   const [postModalShow, setPostModalShow] = useState(false);
   const { userData } = useContext(UserContext);
   const history = useHistory();
+  const params = useParams();
 
   useEffect(() => {
     if (!userData.user) history.push("/login");
   }, [userData.user, history]);
 
-  const getPosts = async () => {
-    const posts = await Axios.get("/posts/all", {
+  const getPost = async () => {
+    const post = await Axios.get(`/posts/one/${params.postId}`, {
       headers: { "x-auth-token": userData.token },
     });
-    setTweets(posts.data);
+    setTweet(post.data);
   };
 
   useEffect(() => {
-    getPosts();
+    getPost();
   }, []);
-
-  const autoUpdateList = useCallback(() => {
-    getPosts();
-  }, [tweets, getPosts]);
 
   const openPostModal = () => {
     setPostModalShow(true);
@@ -45,9 +42,7 @@ const Home = () => {
       }).then((res) => {
         if (res.status === 200) {
           alert("deleted successfully");
-          autoUpdateList();
         }
-        // will need else condition if cant delete
       });
     } catch (error) {
       console.log(error);
@@ -60,31 +55,29 @@ const Home = () => {
 
       <FeedContainer>
         <div>
-          <h3 style={{ margin: "10px 0px" }}>Home</h3>
+          <h3 style={{ margin: "10px 0px" }}>Single Post</h3>
         </div>
         <TweetModal
           show={postModalShow}
           setShow={setPostModalShow}
-          autoUpdateList={autoUpdateList}
         ></TweetModal>
-
-        {tweets.map((tweet, i) => (
-          <TweetContainer
-            key={i}
-            onClick={() => history.push(`/post/${tweet._id}`)}
-          >
+        {tweet._id && (
+          <TweetContainer>
             <div style={{ display: "flex" }}>
               <div style={{ height: "90%" }}>
                 <CgProfile size="50px" />
               </div>
               <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
             </div>
+            {tweet.authorId === userData.user.id && (
+              <button onClick={() => deleteTweet(tweet._id)}>delete</button>
+            )}
           </TweetContainer>
-        ))}
+        )}
       </FeedContainer>
       <div style={{ margin: "15px" }}>Whats happening/Messages</div>
     </HomeLayout>
   );
 };
 
-export default Home;
+export default SinglePost;
