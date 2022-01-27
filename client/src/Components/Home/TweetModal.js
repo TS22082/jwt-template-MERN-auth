@@ -17,7 +17,7 @@ const TweetModal = (props) => {
     if (props.editing) {
       setTweet(props.tweet.text);
     }
-  }, [props.show]);
+  }, [props.tweet, props.show]);
 
   const onChange = (e) => {
     setTweet(e.target.value);

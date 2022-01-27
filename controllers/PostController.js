@@ -26,6 +26,16 @@ module.exports = {
     }
   },
 
+  getAllPostsByUser: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const allPosts = await Post.find({ authorId: userId });
+      return res.json(allPosts);
+    } catch (err) {
+      return res.status(500).json({ msg: err });
+    }
+  },
+
   getSinglePost: async (req, res) => {
     try {
       const postFound = await Post.findById(req.params.postId);

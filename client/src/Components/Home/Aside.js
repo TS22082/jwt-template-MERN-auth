@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import AsideMenu from "../../Fragments/Home/AsideMenu";
 import AsideButton from "../../Fragments/Home/AsideButton";
 import TweetButton from "../../Fragments/Buttons/TweetButton";
 import AsideDivWrapButton from "./AsideDivWrapButton";
 import { FaTwitter } from "react-icons/fa";
 import TweetButtonContainer from "./TweetButtonContainer";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../../Context/UserContext";
+import { useHistory } from "react-router-dom";
 
 const StyledLink = styled.a`
   text-decoration: none;
@@ -14,6 +15,8 @@ const StyledLink = styled.a`
 `;
 
 const Aside = (props) => {
+  const { userData } = useContext(UserContext);
+  const history = useHistory();
   return (
     <AsideMenu>
       <AsideDivWrapButton>
@@ -41,7 +44,7 @@ const Aside = (props) => {
         </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
-        <AsideButton>
+        <AsideButton onClick={() => history.push(`/user/${userData.user.id}`)}>
           <h2>Profile</h2>
         </AsideButton>
       </AsideDivWrapButton>
