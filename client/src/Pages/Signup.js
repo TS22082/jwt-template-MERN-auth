@@ -20,6 +20,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await Axios.post("/users/register", form);
+
       const loginRes = await Axios.post("/users/login", {
         email: form.email,
         password: form.password,

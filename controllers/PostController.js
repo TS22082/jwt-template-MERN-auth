@@ -73,7 +73,6 @@ module.exports = {
 
       return res.json({ msg: "successfully deleted" });
     } catch (err) {
-      console.log(res);
       return res.status(500).json({ msg: err });
     }
   },
