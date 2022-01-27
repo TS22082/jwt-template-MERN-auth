@@ -12,6 +12,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 import { BsHeart } from "react-icons/bs";
 import { FiUpload } from "react-icons/fi";
+import { BsStars } from "react-icons/bs";
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
@@ -58,8 +59,9 @@ const Home = () => {
       <Aside show={postModalShow} openPostModal={openPostModal}></Aside>
 
       <FeedContainer>
-        <div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h3 style={{ margin: "10px" }}>Home</h3>
+          <BsStars style={{ margin: "10px 10px 0 0" }} />
         </div>
         <TweetModal
           show={postModalShow}
