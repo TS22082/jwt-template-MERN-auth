@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import HomeLayout from "../Fragments/Home/HomeLayout";
@@ -13,6 +13,7 @@ const SinglePost = () => {
   const [tweet, setTweet] = useState({});
   const [postModalShow, setPostModalShow] = useState(false);
   const { userData } = useContext(UserContext);
+  const [editing, setEditing] = useState(false);
   const history = useHistory();
   const params = useParams();
 
@@ -30,6 +31,10 @@ const SinglePost = () => {
   useEffect(() => {
     getPost();
   }, []);
+
+  const updateOneTweet = useCallback(() => {
+    getPost();
+  }, [tweet, getPost]);
 
   const openPostModal = () => {
     setPostModalShow(true);
@@ -55,11 +60,15 @@ const SinglePost = () => {
 
       <FeedContainer>
         <div>
-          <h3 style={{ margin: "10px 0px" }}>Single Post</h3>
+          <h3 style={{ margin: "10px 0px" }}>Tweet</h3>
         </div>
         <TweetModal
           show={postModalShow}
           setShow={setPostModalShow}
+          editing={editing}
+          setEditing={setEditing}
+          tweet={tweet}
+          updateOneTweet={updateOneTweet}
         ></TweetModal>
         {tweet._id && (
           <TweetContainer>
@@ -70,7 +79,17 @@ const SinglePost = () => {
               <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
             </div>
             {tweet.authorId === userData.user.id && (
-              <button onClick={() => deleteTweet(tweet._id)}>delete</button>
+              <div>
+                <button onClick={() => deleteTweet(tweet._id)}>delete</button>
+                <button
+                  onClick={() => {
+                    setEditing(true);
+                    setPostModalShow(true);
+                  }}
+                >
+                  edit
+                </button>
+              </div>
             )}
           </TweetContainer>
         )}

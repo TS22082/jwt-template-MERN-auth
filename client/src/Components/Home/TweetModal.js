@@ -3,7 +3,6 @@ import UserContext from "../../Context/UserContext";
 import TweetModalContainer from "../../Fragments/Home/TweetModalContainer";
 import Modal from "../../Fragments/Home/TweetModal";
 import Axios from "axios";
-import AuthButton from "../../Fragments/Buttons/AuthButton";
 import { CgProfile } from "react-icons/cg";
 import TweetTextArea from "../../Fragments/Home/TweetTextArea";
 import SmallTweetButton from "../../Fragments/Buttons/SmallTweetButton";
@@ -15,6 +14,9 @@ const TweetModal = (props) => {
 
   useEffect(() => {
     if (inputElement.current) inputElement.current.focus();
+    if (props.editing) {
+      setTweet(props.tweet.text);
+    }
   }, [props.show]);
 
   const onChange = (e) => {
@@ -38,6 +40,28 @@ const TweetModal = (props) => {
     setTweet("");
     props.setShow(false);
     props.autoUpdateList();
+  };
+
+  const editTweet = async (e, postId, newText) => {
+    e.preventDefault();
+    try {
+      await Axios.put(
+        `/posts/${postId}`,
+        { text: newText },
+        {
+          headers: { "x-auth-token": userData.token },
+        }
+      ).then((res) => {
+        if (res.status === 200) {
+          alert("edited successfully");
+        }
+      });
+      props.setShow(false);
+      props.setEditing(false);
+      props.updateOneTweet();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -64,7 +88,11 @@ const TweetModal = (props) => {
           <div style={{ display: "flex", width: "93%" }}>
             <CgProfile size="50px" style={{ transform: "translateY(-10px)" }} />
             <form
-              onSubmit={(e) => onSubmitTweet(e)}
+              onSubmit={
+                props.editing
+                  ? (e) => editTweet(e, props.tweet._id, tweet)
+                  : (e) => onSubmitTweet(e)
+              }
               style={{
                 width: "92%",
                 display: "flex",

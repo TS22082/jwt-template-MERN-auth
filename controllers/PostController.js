@@ -47,7 +47,7 @@ module.exports = {
 
       return res.json(await postFound.save());
     } catch (err) {
-      return res.status(500).msg({ msg: err });
+      return res.status(500).json({ msg: err });
     }
   },
 

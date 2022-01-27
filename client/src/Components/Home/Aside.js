@@ -5,6 +5,13 @@ import TweetButton from "../../Fragments/Buttons/TweetButton";
 import AsideDivWrapButton from "./AsideDivWrapButton";
 import { FaTwitter } from "react-icons/fa";
 import TweetButtonContainer from "./TweetButtonContainer";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: black;
+`;
 
 const Aside = (props) => {
   return (
@@ -18,7 +25,9 @@ const Aside = (props) => {
       </AsideDivWrapButton>
       <AsideDivWrapButton>
         <AsideButton>
-          <h2>Home</h2>
+          <StyledLink href="/">
+            <h2>Home</h2>
+          </StyledLink>
         </AsideButton>
       </AsideDivWrapButton>
       <AsideDivWrapButton>
