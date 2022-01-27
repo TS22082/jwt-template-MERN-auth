@@ -8,9 +8,14 @@ import TweetModal from "../Components/Home/TweetModal";
 import Axios from "axios";
 import TweetContainer from "../Fragments/Home/TweetContainer";
 import { CgProfile } from "react-icons/cg";
+import { FaRegComment } from "react-icons/fa";
+import { FaRetweet } from "react-icons/fa";
+import { BsHeart } from "react-icons/bs";
+import { FiUpload } from "react-icons/fi";
 
 const SinglePost = () => {
   const [tweet, setTweet] = useState({});
+  const [tweets, setTweets] = useState([]);
   const [postModalShow, setPostModalShow] = useState(false);
   const { userData } = useContext(UserContext);
   const [editing, setEditing] = useState(false);
@@ -32,9 +37,24 @@ const SinglePost = () => {
     getPost();
   }, []);
 
+  const getPosts = async () => {
+    const posts = await Axios.get("/posts/all", {
+      headers: { "x-auth-token": userData.token },
+    });
+    setTweets(posts.data);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   const updateOneTweet = useCallback(() => {
     getPost();
   }, [tweet, getPost]);
+
+  const autoUpdateList = useCallback(() => {
+    getPosts();
+  }, [tweets, getPosts]);
 
   const openPostModal = () => {
     setPostModalShow(true);
@@ -49,6 +69,7 @@ const SinglePost = () => {
           alert("deleted successfully");
         }
       });
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -69,14 +90,45 @@ const SinglePost = () => {
           setEditing={setEditing}
           tweet={tweet}
           updateOneTweet={updateOneTweet}
+          autoUpdateList={autoUpdateList}
         ></TweetModal>
         {tweet._id && (
           <TweetContainer>
             <div style={{ display: "flex" }}>
-              <div style={{ height: "90%" }}>
-                <CgProfile size="50px" />
+              <CgProfile size="50px" />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                <div style={{ display: "flex" }}>
+                  <div style={{ height: "90%" }}></div>
+                  <div
+                    style={{
+                      display: "flex",
+                      // flexDirection: "column",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <p style={{ margin: "0", fontWeight: "bold" }}>ajspivey</p>
+                    <p style={{ margin: "0", color: "#536471" }}>@ajspivey</p>
+                  </div>
+                </div>
+                <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <FaRegComment />
+                  <FaRetweet />
+                  <BsHeart />
+                  <FiUpload />
+                </div>
               </div>
-              <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
             </div>
             {tweet.authorId === userData.user.id && (
               <div>

@@ -90,7 +90,7 @@ const SinglePost = () => {
         ></TweetModal>
         {user && (
           <div>
-            <h3>{user.displayName}</h3>
+            <h3>{user.displayName}'s Tweets</h3>
           </div>
         )}
         {userTweets.length &&

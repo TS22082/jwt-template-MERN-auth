@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import HomeLayout from "../Fragments/Home/HomeLayout";
 import Aside from "../Components/Home/Aside";
@@ -8,6 +8,10 @@ import TweetModal from "../Components/Home/TweetModal";
 import Axios from "axios";
 import TweetContainer from "../Fragments/Home/TweetContainer";
 import { CgProfile } from "react-icons/cg";
+import { FaRegComment } from "react-icons/fa";
+import { FaRetweet } from "react-icons/fa";
+import { BsHeart } from "react-icons/bs";
+import { FiUpload } from "react-icons/fi";
 
 const Home = () => {
   const [tweets, setTweets] = useState([]);
@@ -20,10 +24,25 @@ const Home = () => {
   }, [userData.user, history]);
 
   const getPosts = async () => {
+    let temp = [];
     const posts = await Axios.get("/posts/all", {
       headers: { "x-auth-token": userData.token },
+    }).then(async (res) => {
+      for (let i = 0; i < res.data.length; i++) {
+        const currentTweet = res.data[i];
+        console.log(currentTweet.authorId);
+        await Axios.get(`/users/posts`, {
+          authorId: currentTweet.authorId,
+        }).then((res) => {
+          console.log(res.data.displayName);
+          currentTweet.displayName = res.data.displayName;
+          temp.push(currentTweet);
+        });
+        console.log(currentTweet);
+      }
     });
-    setTweets(posts.data);
+    console.log(temp);
+    setTweets(temp);
   };
 
   useEffect(() => {
@@ -36,22 +55,6 @@ const Home = () => {
 
   const openPostModal = () => {
     setPostModalShow(true);
-  };
-
-  const deleteTweet = async (postId) => {
-    try {
-      await Axios.delete(`/posts/${postId}`, {
-        headers: { "x-auth-token": userData.token },
-      }).then((res) => {
-        if (res.status === 200) {
-          alert("deleted successfully");
-          autoUpdateList();
-        }
-        // will need else condition if cant delete
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -74,10 +77,44 @@ const Home = () => {
             onClick={() => history.push(`/post/${tweet._id}`)}
           >
             <div style={{ display: "flex" }}>
-              <div style={{ height: "90%" }}>
-                <CgProfile size="50px" />
+              <CgProfile size="50px" />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                }}
+              >
+                <div style={{ display: "flex" }}>
+                  <div style={{ height: "90%" }}></div>
+                  <div
+                    style={{
+                      display: "flex",
+                      // flexDirection: "column",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <p style={{ margin: "0", fontWeight: "bold" }}>
+                      {tweet.displayName}
+                    </p>
+                    <p style={{ margin: "0", color: "#536471" }}>
+                      @{tweet.displayName}
+                    </p>
+                  </div>
+                </div>
+                <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <FaRegComment />
+                  <FaRetweet />
+                  <BsHeart />
+                  <FiUpload />
+                </div>
               </div>
-              <p style={{ padding: "10px", margin: "0" }}>{tweet.text}</p>
             </div>
           </TweetContainer>
         ))}
