@@ -12,6 +12,8 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRetweet } from "react-icons/fa";
 import { BsHeart } from "react-icons/bs";
 import { FiUpload } from "react-icons/fi";
+import TweetButton from "../Fragments/Buttons/TweetButton";
+import SmallTweetButton from "../Fragments/Buttons/SmallTweetButton";
 
 const SinglePost = () => {
   const [tweet, setTweet] = useState({});
@@ -81,7 +83,7 @@ const SinglePost = () => {
 
       <FeedContainer>
         <div>
-          <h3 style={{ margin: "10px 0px" }}>Tweet</h3>
+          <h3 style={{ margin: "10px" }}>Tweet</h3>
         </div>
         <TweetModal
           show={postModalShow}
@@ -108,7 +110,6 @@ const SinglePost = () => {
                   <div
                     style={{
                       display: "flex",
-                      // flexDirection: "column",
                       margin: "0 10px",
                     }}
                   >
@@ -131,16 +132,21 @@ const SinglePost = () => {
               </div>
             </div>
             {tweet.authorId === userData.user.id && (
-              <div>
-                <button onClick={() => deleteTweet(tweet._id)}>delete</button>
-                <button
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <SmallTweetButton
                   onClick={() => {
                     setEditing(true);
                     setPostModalShow(true);
                   }}
                 >
                   edit
-                </button>
+                </SmallTweetButton>
+                <SmallTweetButton
+                  color={"red"}
+                  onClick={() => deleteTweet(tweet._id)}
+                >
+                  delete
+                </SmallTweetButton>
               </div>
             )}
           </TweetContainer>

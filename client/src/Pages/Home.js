@@ -30,18 +30,14 @@ const Home = () => {
     }).then(async (res) => {
       for (let i = 0; i < res.data.length; i++) {
         const currentTweet = res.data[i];
-        console.log(currentTweet.authorId);
         await Axios.get(`/users/posts`, {
           authorId: currentTweet.authorId,
         }).then((res) => {
-          console.log(res.data.displayName);
           currentTweet.displayName = res.data.displayName;
           temp.push(currentTweet);
         });
-        console.log(currentTweet);
       }
     });
-    console.log(temp);
     setTweets(temp);
   };
 
@@ -63,7 +59,7 @@ const Home = () => {
 
       <FeedContainer>
         <div>
-          <h3 style={{ margin: "10px 0px" }}>Home</h3>
+          <h3 style={{ margin: "10px" }}>Home</h3>
         </div>
         <TweetModal
           show={postModalShow}
@@ -90,7 +86,6 @@ const Home = () => {
                   <div
                     style={{
                       display: "flex",
-                      // flexDirection: "column",
                       margin: "0 10px",
                     }}
                   >

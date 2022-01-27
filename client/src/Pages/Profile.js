@@ -8,6 +8,7 @@ import TweetModal from "../Components/Home/TweetModal";
 import Axios from "axios";
 import TweetContainer from "../Fragments/Home/TweetContainer";
 import { CgProfile } from "react-icons/cg";
+import SmallTweetButton from "../Fragments/Buttons/SmallTweetButton";
 
 const SinglePost = () => {
   const [user, setUser] = useState({});
@@ -77,7 +78,7 @@ const SinglePost = () => {
 
       <FeedContainer>
         <div>
-          <h3 style={{ margin: "10px 0px" }}>Profile</h3>
+          <h3 style={{ margin: "10px" }}>Profile</h3>
         </div>
         <TweetModal
           show={postModalShow}
@@ -103,19 +104,23 @@ const SinglePost = () => {
                 <p style={{ padding: "10px", margin: "0" }}>{userTweet.text}</p>
               </div>
               {userTweet.authorId === userData.user.id && (
-                <div>
-                  <button onClick={() => deleteTweet(userTweet._id)}>
-                    delete
-                  </button>
-                  <button
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <SmallTweetButton
                     onClick={() => {
                       setEditing(true);
                       setPostModalShow(true);
-                      getPost(userTweet._id);
                     }}
                   >
                     edit
-                  </button>
+                  </SmallTweetButton>
+                  <SmallTweetButton
+                    color={"red"}
+                    onClick={() => deleteTweet(tweet._id)}
+                  >
+                    delete
+                  </SmallTweetButton>
                 </div>
               )}
             </TweetContainer>

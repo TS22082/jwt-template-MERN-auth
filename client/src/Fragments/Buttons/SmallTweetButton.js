@@ -5,7 +5,7 @@ const SmallTweetButton = styled.button`
   height: 36px;
   font-size: 15px;
   font-weight: bold;
-  background-color: #2e9bf0;
+  background-color: ${(props) => (props.color ? props.color : "#2e9bf0")};
   color: white;
   border: none;
   text-align: center;

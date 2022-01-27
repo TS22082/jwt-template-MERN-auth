@@ -7,6 +7,9 @@ const AsideButton = styled.button`
   color: black;
   border: none;
   text-align: left;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default AsideButton;
